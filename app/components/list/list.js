@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./list.css";
 
 export default function List() {
   let [input, setInput] = useState("");
   let [listItems, setListItems] = useState([]);
+
+  useEffect(() => {
+    const storedList = localStorage.getItem("list");
+    if (storedList) {
+      setListItems(JSON.parse(storedList));
+    }
+  }, []);
 
   const onInputChange = (event) => {
     setInput(event.target.value);
@@ -14,15 +21,29 @@ export default function List() {
   const onSubmit = (event) => {
     event.preventDefault();
     if (input) {
-      setListItems([...listItems, { text: input, checked: false }]);
+      const updatedList = [...listItems, { text: input, checked: false }];
+      setListItems(updatedList);
       setInput("");
+      localStorage.setItem("list", JSON.stringify(updatedList));
     }
   };
 
   const toggleChecked = (index) => {
     const updatedItems = [...listItems];
     updatedItems[index].checked = !updatedItems[index].checked;
+
+    if (updatedItems[index].checked) {
+      updatedItems.push(updatedItems.splice(index, 1)[0]);
+    }
+
     setListItems(updatedItems);
+    localStorage.setItem("list", JSON.stringify(updatedItems));
+  };
+
+  const onClick = () => {
+    const uncheckedItems = listItems.filter((item) => !item.checked);
+    setListItems(uncheckedItems);
+    localStorage.setItem("list", JSON.stringify(uncheckedItems));
   };
 
   return (
@@ -64,6 +85,9 @@ export default function List() {
           </li>
         ))}
       </ul>
+      <button onClick={onClick} type="submit">
+        Delete completed items
+      </button>
     </div>
   );
 }
