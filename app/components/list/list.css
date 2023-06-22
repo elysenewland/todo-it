@@ -1,3 +1,22 @@
 .list {
   list-style-type: none;
 }
+.list-button {
+  font-family: Poppins;
+  cursor: pointer;
+  border-radius: 2rem;
+}
+
+.list-item-input {
+  font-family: Poppins;
+  border-radius: 0.375rem;
+}
+
+/* .list-item {
+  position: relative;
+  margin-bottom: 0.625rem;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
+  color: black;
+  background-color: white;
+} */
