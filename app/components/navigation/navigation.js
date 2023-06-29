@@ -5,7 +5,7 @@ export default function Navigation() {
     <header className="nav-header">
       <nav>
         <a className="nav-link" href="/">
-          <h1 className="nav-text">Todo It</h1>
+          <h1 className="nav-text">Daily Todo</h1>
         </a>
       </nav>
     </header>
